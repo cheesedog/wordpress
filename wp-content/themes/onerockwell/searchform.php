@@ -3,7 +3,7 @@
  * Template for displaying search forms in Onerockwell
  *
  * @package WordPress
- * @subpackage Twenty_Sixteen
+ * @subpackage Onerockwell
  * @since Onerockwell 1.0
  */
 ?>

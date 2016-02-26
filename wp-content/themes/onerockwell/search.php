@@ -3,7 +3,7 @@
  * The template for displaying search results pages
  *
  * @package WordPress
- * @subpackage Twenty_Sixteen
+ * @subpackage Onerockwell
  * @since Onerockwell 1.0
  */
 

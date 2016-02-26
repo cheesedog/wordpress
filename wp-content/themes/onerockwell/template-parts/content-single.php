@@ -3,7 +3,7 @@
  * The template part for displaying single posts
  *
  * @package WordPress
- * @subpackage Twenty_Sixteen
+ * @subpackage Onerockwell
  * @since Onerockwell 1.0
  */
 ?>

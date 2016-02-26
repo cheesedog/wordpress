@@ -3,7 +3,7 @@
  * The template for the sidebar containing the main widget area
  *
  * @package WordPress
- * @subpackage Twenty_Sixteen
+ * @subpackage Onerockwell
  * @since Onerockwell 1.0
  */
 ?>

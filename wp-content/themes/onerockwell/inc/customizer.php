@@ -3,7 +3,7 @@
  * Onerockwell Customizer functionality
  *
  * @package WordPress
- * @subpackage Twenty_Sixteen
+ * @subpackage Onerockwell
  * @since Onerockwell 1.0
  */
 
