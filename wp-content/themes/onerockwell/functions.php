@@ -249,6 +249,9 @@ function onerockwell_scripts() {
 	// Load the Internet Explorer 7 specific stylesheet.
 	wp_enqueue_style( 'onerockwell-ie7', get_template_directory_uri() . '/css/ie7.css', array( 'onerockwell-style' ), '20150930' );
 	wp_style_add_data( 'onerockwell-ie7', 'conditional', 'lt IE 8' );
+	
+	// Load the Master stylesheet.
+	wp_enqueue_style( 'onerockwell-master', get_template_directory_uri() . '/css/master.css', array( 'onerockwell-style' ), '20150930' );
 
 	// Load the html5 shiv.
 	wp_enqueue_script( 'onerockwell-html5', get_template_directory_uri() . '/js/html5.js', array(), '3.7.3' );

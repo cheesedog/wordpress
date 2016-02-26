@@ -1,0 +1,539 @@
+@mixin transition($attributes...) {
+  transition         : #{$attributes};
+  -moz-transition    : #{$attributes}; /*  Firefox */
+  -webkit-transition : #{$attributes}; /*  Safari and Chrome */
+  -ms-transition     : #{$attributes}; /*  ie */
+  -o-transition      : #{$attributes}; /*  Opera */
+}
+@mixin opacity($percent) {
+  opacity: $percent;
+  -moz-opacity: $percent;
+  @if $percent == 1 {
+    /* do nothing */
+  } @else {
+    filter: alpha(opacity=$percent * 100);
+  }
+}
+@mixin box-shadow($def) {
+  -webkit-box-shadow: $def;
+  -moz-box-shadow: $def;
+  box-shadow: $def;
+}
+
+@mixin border-box {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+
+@mixin border-radius($radii) {
+  @include border-top-radius($radii);
+  @include border-bottom-radius($radii);
+  @include border-left-radius($radii);
+  @include border-right-radius($radii);
+}
+
+@mixin border-radius-all($radius) {
+  -moz-border-radius:     $radius;
+  -webkit-border-radius:  $radius;
+  -ms-border-radius:      $radius;
+  border-radius:          $radius;
+}
+
+@mixin transform($attributes...) {
+  transform: #{$attributes};
+  -webkit-transform: #{$attributes};
+  -moz-transform:    #{$attributes};
+  -ms-transform:     #{$attributes};
+  -o-transform:      #{$attributes};
+}
+
+@mixin transform-origin($attributes...) {
+  transform-origin: #{$attributes};
+  -webkit-transform-origin: #{$attributes};
+  -moz-transform-origin:    #{$attributes};
+  -ms-transform-origin:     #{$attributes};
+  -o-transform-origin:      #{$attributes};
+}
+
+@mixin transform-style($attributes...) {
+  transform-style: #{$attributes};
+  -webkit-transform-style: #{$attributes};
+  -moz-transform-style:    #{$attributes};
+  -ms-transform-style:     #{$attributes};
+  -o-transform-style:      #{$attributes};
+}
+
+@mixin perspective($attributes...) {
+  perspective: #{$attributes};
+  -webkit-perspective: #{$attributes};
+  -moz-perspective:    #{$attributes};
+  -ms-perspective:     #{$attributes};
+  -o-perspective:      #{$attributes};
+}
+
+@mixin perspective-origin($attributes...) {
+  perspective-origin: #{$attributes};
+  -webkit-perspective-origin: #{$attributes};
+  -moz-perspective-origin:    #{$attributes};
+  -ms-perspective-origin:     #{$attributes};
+  -o-perspective-origin:      #{$attributes};
+}
+
+@mixin center-text-box {
+  position: relative;
+  top: 50%;
+  @include transform(translateY(-50%));
+}
+
+/*Use for specific px (no break point) you want to have respond view*/
+@mixin respond-to($val, $query) {
+  @media ($val: $query) {
+    @content
+  }
+}
+/* respond to example
+@include respond-to(max-width,600px) {
+  float:right;
+  width:30%;
+}*/
+
+@mixin retina() {
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 1.5),
+  only screen and (min-device-pixel-ratio: 1.5) {
+    @content
+  }
+}
+/* retina example
+@include retina() {
+  .logo {
+    background-image: url(logo@2x.png);
+    -webkit-background-size: 12px 16px;
+    background-size: 12px 16px;
+  }
+}*/
+
+
+
+@mixin content-box {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+@mixin rotate($deg) {
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -ms-transform: rotate($deg); 
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+@mixin font-smoothing($value) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+/* Animations */
+@-webkit-keyframes spin {
+  100% { -webkit-transform: rotate(359deg); }
+}
+
+@-moz-keyframes spin {
+  100% { -moz-transform: rotate(359deg); }
+}
+
+@-o-keyframes spin {
+  100% { -moz-transform: rotate(359deg); }
+}
+
+@keyframes spin {
+  100% {  transform: rotate(359deg); }
+}
+
+
+@-webkit-keyframes cwSpin
+{
+  0%{-webkit-transform:rotate(0deg);  }
+  100%{-webkit-transform:rotate(360deg); }
+}
+@-moz-keyframes cwSpin
+{
+  0%{-moz-transform:rotate(0deg); }
+  100%{-moz-transform:rotate(360deg); }
+}
+@-ms-keyframes cwSpin
+{
+  0%{-ms-transform:rotate(0deg);  }
+  100%{-ms-transform:rotate(360deg); }
+}
+@-o-keyframes cwSpin
+{
+  0%{-o-transform:rotate(0deg); }
+  100%{-o-transform:rotate(360deg); }
+}
+@keyframes cwSpin
+{
+  0%{transform:rotate(0deg);  }
+  100%{transform:rotate(360deg); }
+}
+
+// fluid grid
+@mixin flush-fluid-grid($grid-num-items, $grid-margin) {
+
+    // Cal List Item
+    $grid-remainder: $grid-margin * $grid-num-items * 2;
+    $grid-item-width: (100% - $grid-remainder) / $grid-num-items;
+    $grid-overflow: $grid-margin * 2;
+
+    // Cal Grid
+    $grid-inner-width: 100% * (100% / (100% - $grid-overflow));
+    $grid-margin-left: (100% - $grid-inner-width) / 2;
+
+    .products-grid {
+      @include clear-box;
+      width: $grid-inner-width;
+      margin-left: $grid-margin-left;
+      > .item {
+        float: left;
+        width: $grid-item-width;
+        margin: 0 $grid-margin $grid-margin*2;
+        &.promo {
+          width: ($grid-item-width*2) + $grid-margin*2;
+          &.full-bleed {
+            width: ($grid-item-width*4) + $grid-margin*2;
+          }
+        }
+      }
+    }
+
+}
+@mixin flush-fluid-grid-slidedown ($grid-num-items, $grid-margin) {
+    //.category-products, .category-products.slidedown-category-products {
+    // Cal List Item
+    $grid-remainder: $grid-margin * $grid-num-items * 2;
+    $grid-item-width: (100% - $grid-remainder) / $grid-num-items;
+    $grid-overflow: $grid-margin * 2;
+
+    // Cal Grid
+    $grid-inner-width: 100% * (100% / (100% - $grid-overflow));
+    $grid-margin-left: (100% - $grid-inner-width) / 2;
+
+    .products-grid {
+
+      @include clear-box;
+      width: $grid-inner-width;
+      margin-left: $grid-margin-left;
+      > .item {
+        float: none;
+        display: inline-block;
+        vertical-align: top;
+        width: $grid-item-width;
+        margin: 0 $grid-margin $grid-margin*2;
+        &.promo {
+          //width: ($grid-item-width*2) + $grid-margin*2;
+        }
+      }
+    }
+    //}
+}
+@mixin flush-fluid-grid-general($grid-num-items, $grid-margin) {
+  $grid-remainder: $grid-margin * $grid-num-items * 2;
+  $grid-item-width: (100% - $grid-remainder) / $grid-num-items;
+  $grid-overflow: $grid-margin * 2;
+
+  $grid-inner-width: 100% * (100% / (100% - $grid-overflow));
+  $grid-margin-left: (100% - $grid-inner-width) / 2;
+
+  @include clear-box;
+  width: $grid-inner-width;
+  margin-left: $grid-margin-left;
+  > .item {
+    float: left;
+    width: $grid-item-width;
+    margin: 0 $grid-margin $grid-margin*2;
+    &.promo {
+      width: ($grid-item-width*2) + $grid-margin*2;
+      &.full-bleed {
+        width: ($grid-item-width*4) + $grid-margin*2;
+      }
+    }
+  }
+}
+
+@mixin clear-box {
+  &:after {
+    display: block;
+    content:"";
+    width: 0;
+    height: 0;
+    position: relative;
+    background: transparent;
+    clear: both;
+  }
+}
+
+@mixin placeholder-color($color) {
+  &::-webkit-input-placeholder { /* WebKit browsers */
+    color:    $color;
+  }
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color:    $color;
+      opacity:  1;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color:    $color;
+      opacity:  1;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+      color:    $color;
+  }
+}
+
+@mixin percentage-height($height) {
+  height: 0;
+  padding-bottom: $height;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Shapes */
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  background: #bebcbb;
+  -moz-border-radius: $size/2;
+  -webkit-border-radius: $size/2;
+  border-radius: $size/2;
+}
+
+@mixin triangle-right($size, $color) {
+  width: 0;
+  height: 0;
+  border-top: $size solid transparent;
+  border-left: $size solid $color;
+  border-bottom: $size solid transparent;
+}
+
+@mixin triangle-left($size, $color) {
+  width: 0;
+  height: 0;
+  border-top: $size solid transparent;
+  border-right: $size solid $color;
+  border-bottom: $size solid transparent;
+}
+
+@mixin arrow-left($size, $color, $borderSize, $backgroundColor) {
+  @include triangle-left($size, $color);
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: $borderSize;
+    top: $borderSize - $size;
+    @include triangle-left($size - $borderSize, $backgroundColor);
+  }
+}
+
+@mixin arrow-right($size, $color, $borderSize, $backgroundColor) {
+  @include triangle-right($size, $color);
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    right: $borderSize;
+    top: $borderSize - $size;
+    @include triangle-right($size - $borderSize, $backgroundColor);
+  }
+}
+
+@mixin magnifying-glass ($size, $color) {
+
+  background: none repeat scroll 0 0 transparent;
+  border: 1px solid $color;
+  border-radius: 0.35em;
+  display: inline-block;
+  font-size: $size; /* This controls the size. */ 
+  height: 0.3em;
+  margin-top: -0.1em;
+  position: relative;
+  width: 0.3em;
+
+  &:before {
+    background: $color; 
+    border-width: 0;
+    bottom: -0.07em;
+    content: "";
+    display: inline-block;
+    height: 0.05em;
+    position: absolute;
+    right: -0.16em;
+    width: 0.25em;
+    @include rotate(45deg);
+  }
+
+  @include respond-to(max-width, $resNavWidth) {
+    border: 0.08em solid $color; 
+  }
+}
+
+@mixin heart($x, $color) {
+  position: relative;
+  width: $x;
+  height: $x*0.9;
+
+  &:before, &:after {
+    position: absolute;
+    content: "";
+    left: $x/2;
+    top: 0;
+    width: $x/2;
+    height: $x*0.8;
+    background: $color;
+    -moz-border-radius: $x/2 $x/2 0 0;
+    border-radius: $x/2 $x/2 0 0;
+    -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg); -webkit-transform-origin: 0 100%; -moz-transform-origin: 0 100%; -ms-transform-origin: 0 100%; -o-transform-origin: 0 100%; transform-origin: 0 100%;
+  }
+
+  &:after {
+    left: 0;
+    -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg); -webkit-transform-origin: 100% 100%; -moz-transform-origin: 100% 100%; -ms-transform-origin: 100% 100%; -o-transform-origin: 100% 100%; transform-origin :100% 100%;
+  }
+}
+
+@mixin loaderSpin ($loaderSize, $loaderBorderSize, $loaderInnerBorderSize) {
+  width: $loaderSize;
+  height: $loaderSize;
+
+  &:before {
+    content: '';
+    display:none;
+    position:absolute;
+
+    width: $loaderSize;
+    height: $loaderSize;
+
+    top: 50%;
+    left: 50%;
+    margin-top: -$loaderSize/2;
+    margin-left: -$loaderSize/2;
+    
+    border-radius: 60px;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    
+    -webkit-animation: cwSpin 1.5s linear .2s infinite;
+    -moz-animation: cwSpin 1.5s linear .2s infinite;
+    -o-animation: cwSpin 1.5s linear .2s infinite;
+    -ms-animation: cwSpin 1.5s linear .2s infinite;
+    animation: cwSpin 1.5s linear .2s infinite;
+
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -ms-box-shadow:none;
+    -o-box-shadow:none;
+    -webkit-box-shadow:none;
+    
+    border-top:$loaderBorderSize solid transparent;
+    border-bottom:$loaderBorderSize solid rgba(180, 180, 180, 0.2);
+    border-left:$loaderBorderSize solid rgba(180, 180, 180, 0.2);
+    border-right:$loaderBorderSize solid transparent;
+
+  }
+
+
+
+  &:after {
+    content: '';
+    display:block;
+    position:absolute;
+
+    width: $loaderSize;
+    height: $loaderSize;
+
+    top: 50%;
+    left: 50%;
+    margin-top: -$loaderSize/2 + ($loaderBorderSize - $loaderInnerBorderSize);
+    margin-left: -$loaderSize/2 + ($loaderBorderSize - $loaderInnerBorderSize);
+    
+    border-radius: 60px;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    
+    -webkit-animation: cwSpin 1s ease .2s infinite;
+    -moz-animation: cwSpin 1s ease .2s infinite;
+    -o-animation: cwSpin 1s ease .2s infinite;
+    -ms-animation: cwSpin 1s ease .2s infinite;
+    animation: cwSpin 1s ease .2s infinite;
+
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -ms-box-shadow:none;
+    -o-box-shadow:none;
+    -webkit-box-shadow:none;
+    
+    border-top: $loaderInnerBorderSize solid transparent;
+    border-bottom: $loaderInnerBorderSize solid rgba(180, 180, 180, 0.8);
+    border-left: $loaderInnerBorderSize solid rgba(180, 180, 180, 0.8);
+    border-right: $loaderInnerBorderSize solid transparent;
+  }
+}
+
+@mixin loaderSpinCtaFix($loaderSize, $loaderBorderSize, $loaderInnerBorderSize) {
+  &:before {
+    display: none;
+  }
+  &:after {
+    content: '';
+    display:block;
+    position:absolute;
+
+    width: $loaderSize;
+    height: $loaderSize;
+
+    right: 5px + ($loaderBorderSize - $loaderInnerBorderSize);
+    top: 5px + ($loaderBorderSize - $loaderInnerBorderSize);
+    
+    border-radius: 60px;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    
+    -webkit-animation: cwSpin 1s ease .2s infinite;
+    -moz-animation: cwSpin 1s ease .2s infinite;
+    -o-animation: cwSpin 1s ease .2s infinite;
+    -ms-animation: cwSpin 1s ease .2s infinite;
+    animation: cwSpin 1s ease .2s infinite;
+
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -ms-box-shadow:none;
+    -o-box-shadow:none;
+    -webkit-box-shadow:none;
+    
+    border-top: $loaderInnerBorderSize solid transparent;
+    border-bottom: $loaderInnerBorderSize solid rgba(180, 180, 180, 0.8);
+    border-left: $loaderInnerBorderSize solid rgba(180, 180, 180, 0.8);
+    border-right: $loaderInnerBorderSize solid transparent;
+  }
+}
+
